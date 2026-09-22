@@ -36,7 +36,7 @@
             text-align: center;
             color: var(--primary-dark);
             font-size: 1.8rem;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         p.subtitle {
@@ -46,47 +46,57 @@
             margin-bottom: 30px;
         }
 
+        /* 큰 번호 (대분류 제목) 스타일 강화 */
         .section-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 25px;
-            margin-bottom: 12px;
-            color: #0f172a;
-            border-bottom: 2px solid #eff6ff;
-            padding-bottom: 6px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: #1e3a8a;
+            background-color: #eff6ff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+        }
+
+        /* 하위 문항 들여쓰기 구획 */
+        .section-content {
+            padding-left: 18px;
+            margin-left: 6px;
+            border-left: 2px solid #e2e8f0;
+            margin-bottom: 24px;
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.98rem;
         }
 
         input[type="time"], input[type="number"], select {
             width: 100%;
-            padding: 10px;
+            padding: 10px 12px;
             border: 1px solid var(--border);
             border-radius: 6px;
             box-sizing: border-box;
             font-size: 0.95rem;
+            background-color: #fff;
         }
 
-        .radio-group, .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            cursor: pointer;
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
         }
 
         button {
@@ -94,12 +104,12 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 14px;
+            padding: 15px;
             font-size: 1.1rem;
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 25px;
+            margin-top: 10px;
             transition: background-color 0.2s;
         }
 
@@ -110,7 +120,7 @@
         #result-card {
             display: none;
             margin-top: 30px;
-            padding: 20px;
+            padding: 24px;
             background: #f0f9ff;
             border: 1px solid #bae6fd;
             border-radius: 10px;
@@ -120,7 +130,8 @@
             font-size: 1.4rem;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            color: #0369a1;
         }
 
         .component-list {
@@ -132,17 +143,18 @@
         .component-list li {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
+            padding: 8px 0;
             border-bottom: 1px dashed #cbd5e1;
             font-size: 0.95rem;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 20px;
             font-weight: bold;
             color: white;
+            font-size: 1rem;
         }
 
         .status-good { background-color: #10b981; }
@@ -156,76 +168,81 @@
     <p class="subtitle">지난 1달간의 수면 습관에 대한 질문입니다.</p>
 
     <form id="psqi-form">
-        <!-- Q1 ~ Q4 -->
+        <!-- 대분류 1 -->
         <div class="section-title">1. 수면 시간 및 습관</div>
-        
-        <div class="form-group">
-            <label for="q1">1. 지난 한 달 동안 평소 몇 시에 잠자리에 들었습니까?</label>
-            <input type="time" id="q1" required>
+        <div class="section-content">
+            <div class="form-group">
+                <label for="q1">1. 지난 한 달 동안 평소 몇 시에 잠자리에 들었습니까?</label>
+                <input type="time" id="q1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="q2">2. 잠자리에 들어 잠이 들 때까지 걸린 시간(분):</label>
+                <input type="number" id="q2" min="0" placeholder="예: 20" required>
+            </div>
+
+            <div class="form-group">
+                <label for="q3">3. 지난 한 달 동안 평소 아침 몇 시에 일어났습니까?</label>
+                <input type="time" id="q3" required>
+            </div>
+
+            <div class="form-group">
+                <label for="q4">4. 밤에 실제로 잠잔 시간(시간 단위):</label>
+                <input type="number" id="q4" min="0" max="24" step="0.5" placeholder="예: 6.5" required>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="q2">2. 잠자리에 들어 잠이 들 때까지 걸린 시간(분):</label>
-            <input type="number" id="q2" min="0" placeholder="예: 20" required>
-        </div>
-
-        <div class="form-group">
-            <label for="q3">3. 지난 한 달 동안 평소 아침 몇 시에 일어났습니까?</label>
-            <input type="time" id="q3" required>
-        </div>
-
-        <div class="form-group">
-            <label for="q4">4. 밤에 실제로 잠잔 시간(시간 단위):</label>
-            <input type="number" id="q4" min="0" max="24" step="0.5" placeholder="예: 6.5" required>
-        </div>
-
-        <!-- Q5 -->
+        <!-- 대분류 2 -->
         <div class="section-title">2. 수면 방해 요인 (지난 1달간 빈도)</div>
-        <p style="font-size:0.85rem; color:#64748b;">(0: 없었다 / 1: 주 1회 미만 / 2: 주 1-2회 / 3: 주 3회 이상)</p>
+        <div class="section-content">
+            <p style="font-size:0.88rem; color:#64748b; margin-top:0; margin-bottom: 15px;">
+                (0점: 없었다 / 1점: 주 1회 미만 / 2점: 주 1-2회 / 3점: 주 3회 이상)
+            </p>
+            <div id="q5-container"></div>
+        </div>
 
-        <div id="q5-container"></div>
-
-        <!-- Q6 ~ Q9 -->
+        <!-- 대분류 3 -->
         <div class="section-title">3. 주관적 평가 및 낮 동안의 기능</div>
+        <div class="section-content">
+            <div class="form-group">
+                <label for="q6">6. 지난 한 달 동안의 전반적인 수면의 질:</label>
+                <select id="q6" required>
+                    <option value="0">매우 좋음 (0점)</option>
+                    <option value="1">상당히 좋음 (1점)</option>
+                    <option value="2">상당히 나쁨 (2점)</option>
+                    <option value="3">매우 나쁨 (3점)</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="q6">6. 지난 한 달 동안의 전반적인 수면의 질:</label>
-            <select id="q6" required>
-                <option value="0">매우 좋음 (0점)</option>
-                <option value="1">상당히 좋음 (1점)</option>
-                <option value="2">상당히 나쁨 (2점)</option>
-                <option value="3">매우 나쁨 (3점)</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="q7">7. 잠들기 위해 약을 복용한 빈도 (처방약 또는 약국 약):</label>
+                <select id="q7" required>
+                    <option value="0">지난 한 달 동안 없었다 (0점)</option>
+                    <option value="1">한 주에 1번보다 적게 (1점)</option>
+                    <option value="2">한 주에 1-2번 정도 (2점)</option>
+                    <option value="3">한 주에 3번 이상 (3점)</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="q7">7. 잠들기 위해 약을 복용한 빈도 (처방약 또는 약국 약):</label>
-            <select id="q7" required>
-                <option value="0">지난 한 달 동안 없었다 (0점)</option>
-                <option value="1">한 주에 1번보다 적게 (1점)</option>
-                <option value="2">한 주에 1-2번 정도 (2점)</option>
-                <option value="3">한 주에 3번 이상 (3점)</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="q8">8. 운전/식사/사회활동 중 졸음을 느낀 빈도:</label>
+                <select id="q8" required>
+                    <option value="0">지난 한 달 동안 없었다 (0점)</option>
+                    <option value="1">한 주에 1번보다 적게 (1점)</option>
+                    <option value="2">한 주에 1-2번 정도 (2점)</option>
+                    <option value="3">한 주에 3번 이상 (3점)</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="q8">8. 운전/식사/사회활동 중 졸음을 느낀 빈도:</label>
-            <select id="q8" required>
-                <option value="0">지난 한 달 동안 없었다 (0점)</option>
-                <option value="1">한 주에 1번보다 적게 (1점)</option>
-                <option value="2">한 주에 1-2번 정도 (2점)</option>
-                <option value="3">한 주에 3번 이상 (3점)</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="q9">9. 일에 열중하는 데 어려움이 있었던 정도:</label>
-            <select id="q9" required>
-                <option value="0">전혀 없었다 (0점)</option>
-                <option value="1">매우 조금 있었다 (1점)</option>
-                <option value="2">다소 있었다 (2점)</option>
-                <option value="3">매우 많이 있었다 (3점)</option>
-            </select>
+            <div class="form-group">
+                <label for="q9">9. 일에 열중하는 데 어려움이 있었던 정도:</label>
+                <select id="q9" required>
+                    <option value="0">전혀 없었다 (0점)</option>
+                    <option value="1">매우 조금 있었다 (1점)</option>
+                    <option value="2">다소 있었다 (2점)</option>
+                    <option value="3">매우 많이 있었다 (3점)</option>
+                </select>
+            </div>
         </div>
 
         <button type="button" onclick="calculatePSQI()">PSQI 점수 계산하기</button>
@@ -235,7 +252,7 @@
         <div class="result-header" id="total-score-display"></div>
         <div style="text-align: center; margin-bottom: 20px;" id="status-display"></div>
 
-        <div style="font-weight: bold; margin-bottom: 8px;">세부 영역별 점수 (0~3점):</div>
+        <div style="font-weight: bold; margin-bottom: 8px; color:#1e293b;">세부 영역별 점수 (0~3점):</div>
         <ul class="component-list">
             <li><span>C1. 주관적 수면의 질</span><strong id="c1-val"></strong></li>
             <li><span>C2. 수면 잠복기</span><strong id="c2-val"></strong></li>
@@ -245,25 +262,24 @@
             <li><span>C6. 수면제 사용</span><strong id="c6-val"></strong></li>
             <li><span>C7. 낮 동안의 기능 장애</span><strong id="c7-val"></strong></li>
         </ul>
-        <p style="font-size: 0.85rem; color: #475569; margin-top: 15px;">* 총점이 5점 초과(6점 이상)인 경우, 수면의 질이 저하된 상태(Poor Sleeper)를 의미합니다.</p>
+        <p style="font-size: 0.85rem; color: #475569; margin-top: 15px; text-align: center;">* 총점이 5점 초과(6점 이상)인 경우, 수면의 질이 저하된 상태(Poor Sleeper)를 의미합니다.</p>
     </div>
 </div>
 
 <script>
     const q5Questions = [
-        { id: 'q5a', text: 'a. 취침 후 30분 이내에 잠들 수 없었다.' },
-        { id: 'q5b', text: 'b. 한밤중이나 새벽에 깼다.' },
-        { id: 'q5c', text: 'c. 화장실에 가려고 일어나야 했다.' },
-        { id: 'q5d', text: 'd. 편안하게 숨 쉴 수가 없었다.' },
-        { id: 'q5e', text: 'e. 기침을 하거나 시끄럽게 코를 골았다.' },
-        { id: 'q5f', text: 'f. 너무 춥다고 느꼈다.' },
-        { id: 'q5g', text: 'g. 너무 덥다고 느꼈다.' },
-        { id: 'q5h', text: 'h. 나쁜 꿈을 꾸었다.' },
-        { id: 'q5i', text: 'i. 통증이 있었다.' },
-        { id: 'q5j', text: 'j. 기타 이유로 잠자기 어려웠다.' }
+        { id: 'q5a', text: '5a. 취침 후 30분 이내에 잠들 수 없었다.' },
+        { id: 'q5b', text: '5b. 한밤중이나 새벽에 꼈다.' },
+        { id: 'q5c', text: '5c. 화장실에 가려고 일어나야 했다.' },
+        { id: 'q5d', text: '5d. 편안하게 숨 쉴 수가 없었다.' },
+        { id: 'q5e', text: '5e. 기침을 하거나 시끄럽게 코를 골았다.' },
+        { id: 'q5f', text: '5f. 너무 춥다고 느꼈다.' },
+        { id: 'q5g', text: '5g. 너무 덥다고 느꼈다.' },
+        { id: 'q5h', text: '5h. 나쁜 꿈을 꾸었다.' },
+        { id: 'q5i', text: '5i. 통증이 있었다.' },
+        { id: 'q5j', text: '5j. 기타 이유로 잠자기 어려웠다.' }
     ];
 
-    // Q5 렌더링
     const container = document.getElementById('q5-container');
     q5Questions.forEach(q => {
         const div = document.createElement('div');
@@ -281,10 +297,8 @@
     });
 
     function calculatePSQI() {
-        // C1: 주관적 수면의 질
         const c1 = parseInt(document.getElementById('q6').value);
 
-        // C2: 수면 잠복기
         const q2Min = parseFloat(document.getElementById('q2').value);
         let q2Score = 0;
         if (q2Min <= 15) q2Score = 0;
@@ -300,7 +314,6 @@
         else if (c2Sum <= 4) c2 = 2;
         else c2 = 3;
 
-        // C3: 수면 시간
         const q4Hours = parseFloat(document.getElementById('q4').value);
         let c3 = 0;
         if (q4Hours > 7) c3 = 0;
@@ -308,7 +321,6 @@
         else if (q4Hours >= 5) c3 = 2;
         else c3 = 3;
 
-        // C4: 평소 수면 효율
         const q1Time = document.getElementById('q1').value;
         const q3Time = document.getElementById('q3').value;
         
@@ -319,7 +331,7 @@
         let wakeMinutes = wakeH * 60 + wakeM;
 
         if (wakeMinutes <= bedMinutes) {
-            wakeMinutes += 24 * 60; // 다음 날 기상
+            wakeMinutes += 24 * 60;
         }
 
         const totalHoursInBed = (wakeMinutes - bedMinutes) / 60;
@@ -331,7 +343,6 @@
         else if (efficiency >= 65) c4 = 2;
         else c4 = 3;
 
-        // C5: 수면 장애 요인
         const q5b_j = ['q5b','q5c','q5d','q5e','q5f','q5g','q5h','q5i','q5j'];
         const q5Sum = q5b_j.reduce((acc, id) => acc + parseInt(document.getElementById(id).value), 0);
         
@@ -341,10 +352,8 @@
         else if (q5Sum <= 18) c5 = 2;
         else c5 = 3;
 
-        // C6: 수면제 사용
         const c6 = parseInt(document.getElementById('q7').value);
 
-        // C7: 낮 동안의 기능 장애
         const q8Val = parseInt(document.getElementById('q8').value);
         const q9Val = parseInt(document.getElementById('q9').value);
         const c7Sum = q8Val + q9Val;
@@ -354,10 +363,8 @@
         else if (c7Sum <= 4) c7 = 2;
         else c7 = 3;
 
-        // 총점 계산 (0~21점)
         const totalScore = c1 + c2 + c3 + c4 + c5 + c6 + c7;
 
-        // 결과 표시
         document.getElementById('c1-val').innerText = c1 + '점';
         document.getElementById('c2-val').innerText = c2 + '점';
         document.getElementById('c3-val').innerText = c3 + '점';
